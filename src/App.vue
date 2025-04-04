@@ -1,24 +1,25 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './firebase'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('ログイン中:', user.email)
+    if (router.currentRoute.value.path === '/') {
+      router.push('/home')
+    }
+  } else {
+    console.log('未ログイン')
+    if (router.currentRoute.value.path !== '/' && router.currentRoute.value.path !== '/register') {
+      router.push('/')
+    }
+  }
+})
 </script>
 
 <template>
-  <div>
-    <router-view />
-  </div>
+  <router-view />
 </template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
