@@ -4,7 +4,6 @@ import { auth } from './firebase'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-
 onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log('ログイン中:', user.email)

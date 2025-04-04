@@ -27,6 +27,11 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPageView
+  },
+  {
+    path: '/reserve',
+    name: 'reserve',
+    component: () => import('../views/EventReservationView.vue')
   }
 ]
 
